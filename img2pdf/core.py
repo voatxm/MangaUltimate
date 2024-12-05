@@ -8,12 +8,12 @@ import re
 from PIL import Image
 
 
-def fld2pdf(folder: Path, out: str):
+def fld2pdf(folder: Path, out: str, b1: str, b2: str):
     
     files = [file for file in folder.glob(r'*') if re.match(r'.*\.(jpg|png|jpeg|webp)', file.name)]
     files.sort(key=lambda x: x.name)
-    #files.insert(0, "first.jpg")
-    #files.append("last.jpg")
+    files.insert(0, b1)
+    files.append(b2)
     pdf = folder / f'{out}.pdf'
     img2pdf(files, pdf)
     return pdf
