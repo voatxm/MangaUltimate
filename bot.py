@@ -817,12 +817,16 @@ async def chapter_creation(worker_id: int = 0):
     """
 	logger.debug(f"Worker {worker_id}: Starting worker")
 	while True:
-		channel = env_vars.get('CACHE_CHANNEL')
+		#channel = env_vars.get('CACHE_CHANNEL')
 		chapter, chat_id = await pdf_queue.get(worker_id)
 		logger.debug(f"Worker {worker_id}: Got chapter '{chapter.name}' from queue for user '{chat_id}'")
+		user_info = await DB().get_users(str(chat_id))
 		try: 
 			msg = await send_manga_chapter(bot, chapter, chat_id)
-			await msg.copy(channel)
+			if user_info.cap == env_vars["F1"]:
+				await msg.copy(-1002432294589)
+			elif user_info.cap == env_vars["F2"]:
+				await msg.copy(-1002231355848)
 		except:
 			logger.exception(f"Error sending chapter {chapter.name} to user {chat_id}")
 		finally:
