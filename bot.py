@@ -261,7 +261,7 @@ async def on_photo(client: Client, message: Message):
 			photo = photo + ".jpg"
 		return await client.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"<b>{photo}</b>")
 	except Exception as e:
-		return message.reply(f" Errors Occures: {e}\n\n Correct Format: /pto thumb.jpg")
+		return await message.reply(f" Errors Occures: {e}\n\n Correct Format: /pto thumb.jpg")
 
 @bot.on_message(filters=filters.command(['refresh']))
 async def on_refresh(client: Client, message: Message):
