@@ -212,10 +212,10 @@ async def on_set_caption(client: Client, message: Message):
 	db = DB()
 	user_info = await db.get_user(str(message.from_user.id))
 	try:
-		cap = await user_info.cap
-		thumb = await user_info.thumb
-		b1 = await user_info.b1
-		b2 = await user_info.b2
+		cap = user_info.cap
+		thumb = user_info.thumb
+		b1 = user_info.b1
+		b2 = user_info.b2
 		text = f"""
  <b><i>For Manga Camps:
  Thumb : <code>{env_vars["TH1"]}</code>
@@ -501,12 +501,12 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 	if download:
 		pictures_folder = []
 		if user_info.b1:
-			b1 = await user_info.b1
+			b1 = user_info.b1
 			pictures_folder.append(b1)
 		pis = await chapter.client.download_pictures(chapter)
 		pictures_folder.append(pis)
 		if user_info.b2:
-			b2 = await user_info.b2
+			b2 = user_info.b2
 			pictures_folder.append(b2)
 	if not chapter.pictures:
 		return await client.send_message(chat_id,
