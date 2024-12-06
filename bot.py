@@ -557,12 +557,14 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 	else:
 		media_docs[-1].caption = success_caption
 		messages: list[Message] = await retry_on_flood(client.send_media_group)(chat_id, media_docs)
-	channel = env_vars.get('CACHE_CHANNEL')
+	#channel = env_vars.get('CACHE_CHANNEL')
 	for msg in messages:
 		if msg:
-			if user_info.cap == env_vars["F1"]:
+			if ((user_info.thumb) == (env_vars["TH1"])):
+				# Manga Campus
 				await msg.copy(-1002432294589)
-			elif user_info.cap == env_vars["F2"]:
+			elif ((user_info.thumb) == (env_vars["TH2"])):
+				#Manga Weebs
 				await msg.copy(-1002231355848)
 			await asyncio.sleep(1)
 
