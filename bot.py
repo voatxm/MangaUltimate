@@ -32,8 +32,11 @@ OWNER_ID = 1788144071 # put owner id in number directly
 auth_users = [1880221341,5164955785,7716045686,6975428639,1302933634,6321064549] # eg: [83528911,836289,9362891]
 AUTH_USERS = auth_users + [OWNER_ID]
 sb = [
-	[InlineKeyboardButton('* Manga Campus *', callback_data = "athumb:MC")],
-        [InlineKeyboardButton("* Manga Weebs *", callback_data = "athumb:MW")],
+	[InlineKeyboardButton('× Manga Campus ×', callback_data = "athumb:MC")],
+        [InlineKeyboardButton("× Manga Weebs ×", callback_data = "athumb:MW")],
+	[InlineKeyboardButton('× Manga Yugen ×', callback_data = "athumb:MY")],
+        [InlineKeyboardButton("× Manga Mayhem ×", callback_data = "athumb:MM")],
+	[InlineKeyboardButton('× Manhwa18cc ×', callback_data = "athumb:M18")],
 ]
 
 
@@ -217,12 +220,21 @@ async def on_set_caption(client: Client, message: Message):
 		b1 = user_info.b1
 		b2 = user_info.b2
 		text = f"""
- <b><i>For Manga Camps:
+ <b><blockquote expandable><i>For Manga Camps:
  Thumb : <code>{env_vars["TH1"]}</code>
  Banner: <code>{env_vars["B1"]}</code>
  For Weebs:
  Thumb: <code>{env_vars["TH2"]}</code>
  Bannar: <code>{env_vars["B2"]}</code>
+ For Yugen:
+ Thumb: <code>{env_vars["TH3"]}</code>
+ Bannar: <code>{env_vars["B3"]}</code>
+ For Mayhem:
+ Thumb: <code>{env_vars["TH4"]}</code>
+ Bannar: <code>{env_vars["B4"]}</code>
+ For Manhwa18cc:
+ Thumb: <code>{env_vars["TH5"]}</code>
+ Bannar: <code>{env_vars["B5"]}</code></blockquote>
  
  To Views Photo: <code>/pto photoname.jpg</code>
  
@@ -235,12 +247,22 @@ async def on_set_caption(client: Client, message: Message):
 	except Exception as e:
 		print(f"on : {e}")
 		text = f"""
- <b><i>For Manga Camps:
+ <b><blockquote expandable><i>For Manga Camps:
  Thumb : <code>{env_vars["TH1"]}</code>
  Banner: <code>{env_vars["B1"]}</code>
  For Weebs:
  Thumb: <code>{env_vars["TH2"]}</code>
  Bannar: <code>{env_vars["B2"]}</code>
+ For Yugen:
+ Thumb: <code>{env_vars["TH3"]}</code>
+ Bannar: <code>{env_vars["B3"]}</code>
+ For Mayhem:
+ Thumb: <code>{env_vars["TH4"]}</code>
+ Bannar: <code>{env_vars["B4"]}</code>
+ For Manhwa18cc:
+ Thumb: <code>{env_vars["TH5"]}</code>
+ Bannar: <code>{env_vars["B5"]}</code></blockquote>
+ 
  To Views Photo: <code>/pto photoname.jpg</code>
  
  Your Currnet Settings:
@@ -507,7 +529,7 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 	if user_info.thumb:
 		thumb_path = f"{user_info.thumb}"
 	elif not user_info.thumb:
-		thumb_path = "thumb.jpg"
+		thumb_path = "TH3.jpg"
 	chapter_file = chapter_file or ChapterFile(url=chapter.url)
 	if user_info.cap:
 		try:
@@ -566,6 +588,10 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 			elif ((user_info.thumb) == (env_vars["TH2"])):
 				#Manga Weebs
 				await msg.copy(-1002231355848)
+			elif ((user_info.thumb) == (env_vars["TH3"])):
+				await msg.copy(-1002310388934)
+			else:
+				await msg.copy(-1002109661325)
 			await asyncio.sleep(1)
 
 # To Not Mix Other Thumb With Other
@@ -676,6 +702,21 @@ async def on_callback_query(client, callback: CallbackQuery):
 				cap = env_vars["F2"]
 				b1 = env_vars["B2"][0]
 				b2 = env_vars["B2"][1]
+			elif info == "MY":
+				thumb = env_vars["TH3"]
+				cap = env_vars["F3"]
+				b1 = env_vars["B3"][0]
+				b2 = env_vars["B3"][1]
+			elif info == "MM":
+				thumb = env_vars["TH4"]
+				cap = env_vars["F4"]
+				b1 = env_vars["B4"][0]
+				b2 = env_vars["B4"][1]
+			elif info == "M18":
+				thumb = env_vars["TH5"]
+				cap = env_vars["F5"]
+				b1 = env_vars["B5"][0]
+				b2 = env_vars["B5"][1]
 			#user_options = UserInfo(user_id=str(callback.from_user.id), thumb=thumb, cap=cap, b1=b1, b2=b2)
 			await DB().add_users(user_id=str(callback.from_user.id), thumb=thumb, cap=cap, b1=b1, b2=b2)
 			return await callback.message.edit_text(text=f"Doned.")
