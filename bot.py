@@ -537,6 +537,8 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 			except: chap_num = re.search(r"(\d+(?:\.\d+)?)", chapter.name).group(1)
 			chap_name = clean(chapter.manga.name, 29)
 			ch_name = user_info.cap
+			chap_num = str(chap_num)
+			chap_num = re.sub(r'(\d+)', lambda x: f"{int(x.group()):03}", chap_num, count=1)
 			ch_name = ch_name.replace("{chap_num}", str(chap_num))
 			ch_name = ch_name.replace("{chap_name}", str(chap_name))
 		except Exception as e:
@@ -545,8 +547,8 @@ async def send_manga_chapter(client: Client, chapter, chat_id):
 		ch_name = clean(f'{chapter.name} - {clean(chapter.manga.name, 25)}', 45)
 	
 	success_caption = f'<blockquote><b>{ch_name}</b></blockquote>'
-	success_caption = re.sub(r'(\d+)', lambda x: f"{int(x.group()):03}", success_caption, count=1)
-	ch_name = re.sub(r'(\d+)', lambda x: f"{int(x.group()):03}", ch_name, count=1)
+	#success_caption = re.sub(r'(\d+)', lambda x: f"{int(x.group()):03}", success_caption, count=1)
+	#ch_name = re.sub(r'(\d+)', lambda x: f"{int(x.group()):03}", ch_name, count=1)
 	media_docs = []
 	if options & OutputOptions.PDF:
 		if chapter_file.file_id:
