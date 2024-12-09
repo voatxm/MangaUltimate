@@ -1,3 +1,6 @@
+### Deploy Now:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/voatxm/MangaUltimate/)
+
 <p align="center">
     <a href="https://github.com/Dra-Sama/mangabot">
         <kbd>
