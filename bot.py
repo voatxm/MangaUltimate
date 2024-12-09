@@ -29,7 +29,7 @@ from tools.flood import retry_on_flood
 
 
 OWNER_ID = 6321064549 # put owner id in number directly 
-auth_users = [6321064549,7002247408,1394188404,5280269345,7136303059,5005411270,6723435719,6063343021,5469587702,5929480351,1720123638,1864972077,1016442910,6558061813,1895356693,1880221341,1788144071,6564942226,6907806722,5164955785,7716045686,6975428639,1302933634,6321064549] # eg: [83528911,836289,9362891]
+auth_users = [5164955785,5455664988,6844586745,1366609719,6321064549,7002247408,1394188404,5280269345,7136303059,5005411270,6723435719,6063343021,5469587702,5929480351,1720123638,1864972077,1016442910,6558061813,1895356693,1880221341,1788144071,6564942226,6907806722,5164955785,7716045686,6975428639,1302933634,6321064549] # eg: [83528911,836289,9362891]
 AUTH_USERS = auth_users + [OWNER_ID]
 sb = [
 	[InlineKeyboardButton('× Manga Campus ×', callback_data = "athumb:MC")],
@@ -449,7 +449,10 @@ async def manga_click(client, callback: CallbackQuery, pagination: Pagination = 
 
     prev = [InlineKeyboardButton('<<', f'{pagination.id}_{pagination.page - 1}')]
     next_ = [InlineKeyboardButton('>>', f'{pagination.id}_{pagination.page + 1}')]
-    footer = [prev + next_] if pagination.page > 1 else [next_]
+    prev_f = [InlineKeyboardButton('4x<<', f'{pagination.id}_{pagination.page - 4}')]
+    next_f_ = [InlineKeyboardButton('>>4x', f'{pagination.id}_{pagination.page + 4}')]
+    
+    footer = [prev_f + prev + next_ + next_f_] if pagination.page > 1 else [next_ + next_f_]
 
     fav = [[InlineKeyboardButton(
         "Unsubscribe" if subs else "Subscribe",
