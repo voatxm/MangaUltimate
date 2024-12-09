@@ -34,7 +34,7 @@ class MgekoClient(MangaClient):
         #images = [im + manga.findNext("img").get("data-src") for manga in mangas]
         images = []
         for nam in names:
-            images.append("thumb.jpg")
+            images.append("TH3.jpg")
       
         mangas = [MangaCard(self, *tup) for tup in zip(names, url, images)]
 
