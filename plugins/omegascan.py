@@ -19,17 +19,17 @@ class OmegaScanClient(MangaClient):
         super().__init__(*args, name=name, headers=self.pre_headers, **kwargs)
 
     def mangas_from_page(self, page: bytes):
-    """Parse the manga list page and return manga cards."""
+        """Parse the manga list page and return manga cards."""
         bs = BeautifulSoup(page, "html.parser")
 
-    # Locate the main container for manga cards
+        # Locate the main container for manga cards
         container = bs.find('div', {'class': 'manga-list'})
         if not container:
             print("Error: 'manga-list' container not found. Check the page structure.")
             print(page.decode())  # Debug: Print the HTML content of the page
             return []
 
-    # Find manga cards within the container
+        # Find manga cards within the container
         cards = container.find_all("div", {"class": "manga-card"})
         if not cards:
             print("Error: No manga cards found. Check the page structure.")
